@@ -1,0 +1,463 @@
+{
+  "info": {
+    "name": "BikeRent API",
+    "description": "Коллекция запросов для системы аренды велосипедов",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://localhost:7001/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "me"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bikes",
+      "item": [
+        {
+          "name": "Get All Bikes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/bikes",
+              "host": ["{{baseUrl}}"],
+              "path": ["bikes"]
+            }
+          }
+        },
+        {
+          "name": "Get Available Bikes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/bikes/available",
+              "host": ["{{baseUrl}}"],
+              "path": ["bikes", "available"]
+            }
+          }
+        },
+        {
+          "name": "Get Bike by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/bikes/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["bikes", "1"]
+            }
+          }
+        },
+        {
+          "name": "Filter Bikes by Station",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/bikes?stationId=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["bikes"],
+              "query": [
+                {
+                  "key": "stationId",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filter Bikes by Type",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/bikes?type=City",
+              "host": ["{{baseUrl}}"],
+              "path": ["bikes"],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "City"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Bike (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"Trek FX 3\",\n  \"type\": \"City\",\n  \"pricePerHour\": 5.50,\n  \"stationId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bikes",
+              "host": ["{{baseUrl}}"],
+              "path": ["bikes"]
+            }
+          }
+        },
+        {
+          "name": "Update Bike (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pricePerHour\": 6.00,\n  \"status\": \"Service\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bikes/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["bikes", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Bike (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bikes/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["bikes", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stations",
+      "item": [
+        {
+          "name": "Get All Stations",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/stations",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations"]
+            }
+          }
+        },
+        {
+          "name": "Get Station by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/stations/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Station (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Парк Горького\",\n  \"address\": \"Крымский Вал, 9\",\n  \"latitude\": 55.7311,\n  \"longitude\": 37.6014\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/stations",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations"]
+            }
+          }
+        },
+        {
+          "name": "Update Station (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Парк Горького (обновлено)\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/stations/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Station (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/stations/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["stations", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rentals",
+      "item": [
+        {
+          "name": "Start Rental",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bikeId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rentals/start",
+              "host": ["{{baseUrl}}"],
+              "path": ["rentals", "start"]
+            }
+          }
+        },
+        {
+          "name": "Finish Rental",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rentalId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rentals/finish",
+              "host": ["{{baseUrl}}"],
+              "path": ["rentals", "finish"]
+            }
+          }
+        },
+        {
+          "name": "Get Active Rental",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rentals/active",
+              "host": ["{{baseUrl}}"],
+              "path": ["rentals", "active"]
+            }
+          }
+        },
+        {
+          "name": "Get Rental History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rentals/history",
+              "host": ["{{baseUrl}}"],
+              "path": ["rentals", "history"]
+            }
+          }
+        },
+        {
+          "name": "Get All Rentals (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rentals",
+              "host": ["{{baseUrl}}"],
+              "path": ["rentals"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Get My Rentals",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/rentals",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "rentals"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
